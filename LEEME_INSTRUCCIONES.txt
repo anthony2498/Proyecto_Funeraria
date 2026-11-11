@@ -1,0 +1,19 @@
+SISTEMA FUNERARIA - CONEXION REAL CON ORACLE
+
+1. NO borre el proyecto anterior. Extraiga este ZIP y abra su carpeta en NetBeans.
+2. Verifique en SQL Developer que las tablas FIDE_CLIENTES_TB, FIDE_SERVICIOS_TB y FIDE_FALLECIDOS_TB ya existan EN EL USUARIO CON EL QUE SE CONECTARA JAVA.
+3. Edite src/main/resources/application.properties con su URL, usuario y contrasena de Oracle.
+   Ejemplo URL: jdbc:oracle:thin:@//localhost:1521/XEPDB1
+   El service name debe ser el mismo que SQL Developer. Si usa una conexion en la nube/Wallet, estos datos no bastan y habra que adaptar la conexion.
+4. Clean and Build; ejecutar FunerariaApplication.java en NetBeans.
+5. Abrir http://localhost:8080/
+6. Registrar un cliente en la pagina y verificarlo desde SQL Developer:
+   SELECT * FROM FIDE_CLIENTES_TB ORDER BY ID_CLIENTE;
+7. Registrar un fallecido con un cliente existente y verificar:
+   SELECT * FROM FIDE_FALLECIDOS_TB ORDER BY ID_FALLECIDO;
+8. Servicios se consultan desde Oracle. Si la tabla esta vacia, puede usar DATOS_SERVICIOS_OPCIONAL.sql (una sola vez).
+
+IMPORTANTE: El archivo FUNERARIA.sql usa TABLESPACE DATA: no lo vuelva a ejecutar si las tablas ya existen. Si falla TABLESPACE DATA deben pedir al equipo el tablespace correcto.
+No hay datos ficticios en Java; la web muestra lo que exista en Oracle. Tres modulos (clientes, servicios, fallecidos), no las 20 tablas.
+Las tablas no generan IDs automaticamente, por eso el codigo calcula MAX(ID)+1 para ESTA DEMOSTRACION ACADEMICA. No es adecuado para varios usuarios guardando simultaneamente; en un sistema real se usarian secuencias o identidades.
+No se ha probado aqui la conexion con la instancia de Oracle de su computadora.
